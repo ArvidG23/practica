@@ -1,8 +1,12 @@
 class LibroDiario:
+    """Clase que gestiona las transacciones del libro diario contable."""
+
     def __init__(self):
+        """Inicializa el libro diario con una lista vacía de transacciones."""
         self.transacciones = []
-    
+
     def agregar(self, fecha, descripcion, monto, tipo):
+        """Agrega una transacción al libro diario."""
         self.transacciones.append({
             "fecha": fecha,
             "descripcion": descripcion,
@@ -11,6 +15,7 @@ class LibroDiario:
         })
 
     def resumen(self):
+        """Devuelve un resumen de los ingresos y egresos."""
         ingresos = 0
         egresos = 0
         for t in self.transacciones:
