@@ -7,6 +7,10 @@ class LibroDiario:
 
     def agregar(self, fecha, descripcion, monto, tipo):
         """Agrega una transacción al libro diario."""
+        if tipo not in ["ingreso", "egreso"]:
+            raise ValueError("El tipo debe ser 'ingreso' o 'egreso'.")
+        if monto <= 0:
+            raise ValueError("El monto debe ser positivo.")
         self.transacciones.append({
             "fecha": fecha,
             "descripcion": descripcion,
@@ -16,12 +20,6 @@ class LibroDiario:
 
     def resumen(self):
         """Devuelve un resumen de los ingresos y egresos."""
-        ingresos = 0
-        egresos = 0
-        for t in self.transacciones:
-            if t["tipo"] == "ingreso":
-                ingresos += t["monto"]
-            else:
-                egresos += t["monto"]
-        return "Total ingresos: " + str(ingresos) + " Total egresos: " + str(egresos)
-
+        ingresos = sum(t["monto"] for t in self.transacciones if t["tipo"] == "ingreso")
+        egresos = sum(t["monto"] for t in self.transacciones if t["tipo"] == "egreso")
+        return {"total_ingresos": ingresos, "total_egresos": egresos}
